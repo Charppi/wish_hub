@@ -1,0 +1,7 @@
+{
+  "name": "wabot-web-ionic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
