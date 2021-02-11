@@ -1,9 +1,8 @@
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { useParams } from 'react-router';
-import ExploreContainer from '../components/ExploreContainer';
-import './Page.css';
+import { capitalize } from '../services/utils.service';
 
-const Page: React.FC = () => {
+const Page: React.FC = ({ children }) => {
 
   const { name } = useParams<{ name: string; }>();
 
@@ -14,17 +13,17 @@ const Page: React.FC = () => {
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
-          <IonTitle>{name}</IonTitle>
+          <IonTitle>{capitalize(name)}</IonTitle>
         </IonToolbar>
       </IonHeader>
 
-      <IonContent fullscreen>
+      <IonContent className="ion-padding-horizontal" fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">{name}</IonTitle>
+            <IonTitle size="large">{capitalize(name)}</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer name={name} />
+        {children}
       </IonContent>
     </IonPage>
   );
