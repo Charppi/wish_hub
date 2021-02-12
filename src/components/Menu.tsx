@@ -18,9 +18,10 @@ import './Menu.css';
 import React, { useEffect, useState } from 'react';
 import { IonReactRouter } from '@ionic/react-router';
 
-import { appPages } from "../routes"
+import * as Routes from "../routes"
 import UsersService from '../services/users.service';
 import { Answers } from '../pages/Answers';
+import Page from './Page';
 
 interface MenuState {
   name: string
@@ -49,7 +50,7 @@ const Menu: React.FC = () => {
             <IonList id="inbox-list">
               <IonListHeader>{userData.name}</IonListHeader>
               <IonNote>{userData.email}</IonNote>
-              {appPages.map((appPage, index) => {
+              {Routes.appPages.map((appPage, index) => {
                 return <IonMenuToggle key={index} autoHide={false}>
                   <IonItem routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
                     <IonIcon slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
@@ -59,7 +60,7 @@ const Menu: React.FC = () => {
 
               })}
               <IonMenuToggle autoHide={false}>
-                <IonItem onClick={handleSignOut} detail={false}>
+                <IonItem style={{ cursor: "pointer" }} onClick={handleSignOut} detail={false}>
                   <IonIcon slot="start" icon={logOut} />
                   <IonLabel>Cerrar sesion</IonLabel>
                 </IonItem>
@@ -69,11 +70,11 @@ const Menu: React.FC = () => {
         </IonMenu>
         <IonRouterOutlet id="main">
           <Route path="/" exact={true}>
-            <Redirect to="/administracion" />
+            <Redirect to="/administracion/bot" />
           </Route>
-          {appPages.map(({ url, Component }, i) => {
-            return <Route key={i} path={url} render={() => <Component />} />
-          })}
+          <Route path="/administracion/:name" exact={true}>
+            <Page />
+          </Route>
         </IonRouterOutlet>
       </IonSplitPane>
     </IonReactRouter>

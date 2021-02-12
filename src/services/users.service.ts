@@ -1,6 +1,6 @@
 import { auth, db } from "../firebase";
 import localforage from "localforage"
-import { errors, firebaseErrors, presentLoading, presentToast } from "./utils.service";
+import { confirmation, errors, firebaseErrors, presentLoading, presentToast } from "./utils.service";
 
 export default class UsersService {
     static async signIn(email: string, password: string) {
@@ -28,14 +28,15 @@ export default class UsersService {
         }
     }
     static async signOut() {
-        const loading = await presentLoading()
-        try {
-            await auth.signOut()
-        } catch (error) {
-            await presentToast(firebaseErrors(error.code), "danger")
-        } finally {
-            loading.dismiss()
-        }
-
+        confirmation("¿Estas seguro de que deseas cerrar sesión", async () => {
+            const loading = await presentLoading()
+            try {
+                await auth.signOut()
+            } catch (error) {
+                await presentToast(firebaseErrors(error.code), "danger")
+            } finally {
+                loading.dismiss()
+            }
+        })
     }
 }

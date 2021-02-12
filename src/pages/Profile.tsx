@@ -2,7 +2,5 @@ import React from 'react'
 import Page from '../components/Page'
 
 export const Profile: React.FC = () => {
-    return <Page>
-        <h1>Hola</h1>
-    </Page>
+    return <h1>Contenido del perfil</h1>
 }

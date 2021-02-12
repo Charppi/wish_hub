@@ -39,12 +39,12 @@ const App: React.FC = () => {
   }, [])
 
   const privateRoute = (Component: React.FC) => logged ? <Component /> : <Redirect to="/home" />
-  const publicRoute = (Component: React.FC) => !logged ? <Component /> : <Redirect to="/administracion" />
+  const publicRoute = (Component: React.FC) => !logged ? <Component /> : <Redirect to="/administracion/bot" />
 
   return (
     <IonApp>
       <Router>
-        {logged ? <Redirect to="/administracion" /> : <Redirect to="/home" />}
+        {logged ? <Redirect to="/administracion/bot" /> : <Redirect to="/home" />}
         <Switch>
           <Route path="/home" render={() => <Home />} />
           <Route path="/signin" render={() => publicRoute(SignIn)} />

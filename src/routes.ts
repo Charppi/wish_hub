@@ -1,6 +1,7 @@
-import { albums, albumsOutline, chatbubble, chatbubbleOutline, clipboard, clipboardOutline, cube, cubeOutline, personCircle, personCircleOutline, warningOutline, warningSharp } from "ionicons/icons";
+import { albums, albumsOutline, chatbubble, chatbubbleOutline, clipboard, clipboardOutline, cube, cubeOutline, personCircle, personCircleOutline, qrCode, qrCodeOutline, warningOutline, warningSharp } from "ionicons/icons";
 import { Answers } from "./pages/Answers";
 import { Categories } from "./pages/Categories";
+import { Dashboard } from "./pages/Dashboard";
 import { Orders } from "./pages/Orders";
 import { Products } from "./pages/Products";
 import { Profile } from "./pages/Profile";
@@ -14,6 +15,13 @@ interface AppPage {
 }
 
 export const appPages: AppPage[] = [
+    {
+        title: 'Bot',
+        url: '/administracion/bot',
+        iosIcon: qrCodeOutline,
+        mdIcon: qrCode,
+        Component: Dashboard
+    },
     {
         title: 'Productos',
         url: '/administracion/productos',
@@ -50,5 +58,3 @@ export const appPages: AppPage[] = [
         Component: Profile
     }
 ];
-
-

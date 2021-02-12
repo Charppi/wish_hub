@@ -1,4 +1,5 @@
 import { Color } from "@ionic/core"
+import { appPages } from "../routes";
 
 export async function presentToast(message: string, color: Color = "primary") {
     const toast = document.createElement('ion-toast');
@@ -58,4 +59,26 @@ export const errors = {
     user_not_found: "user-not-found"
 }
 
-export const capitalize = (word: string) => word[0].toUpperCase() + word.slice(1);
+export const capitalize = (word: string) => {
+    return word[0].toUpperCase() + word.slice(1);
+}
+
+
+export async function confirmation(message: string, handlerFunction: Function) {
+    const alert = document.createElement('ion-alert');
+    alert.message = message
+    alert.buttons = [
+        {
+            text: 'Cancelar',
+            role: 'cancel',
+            cssClass: 'secondary'
+        }, {
+            text: 'Aceptar',
+            handler: async () => {
+                await handlerFunction()
+            }
+        }
+    ];
+    document.body.appendChild(alert);
+    return await alert.present();
+}
