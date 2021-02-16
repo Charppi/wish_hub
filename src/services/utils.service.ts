@@ -1,5 +1,8 @@
 import { Color } from "@ionic/core"
-import { appPages } from "../routes";
+import { rejects } from "assert";
+import { resolve } from "dns";
+import { v4 } from "uuid"
+import { storage } from "../firebase";
 
 export async function presentToast(message: string, color: Color = "primary") {
     const toast = document.createElement('ion-toast');
@@ -10,7 +13,7 @@ export async function presentToast(message: string, color: Color = "primary") {
     return toast.present();
 }
 
-export function firebaseErrors(code: string): string {
+export function errorHandler(code: string): string {
     console.log(code);
     switch (code) {
         // Errores generales
@@ -39,8 +42,13 @@ export function firebaseErrors(code: string): string {
             return "No existe ningún registro de usuario que corresponda al identificador proporcionado"
         case "permission-denied":
             return "Permiso denegado"
+        case "storage/object-not-found":
+            return "Objeto de almacenamiento no encontrado"
+        //Errores de la aplicacion
         case "user-not-found":
             return "No se encontró datos del usuario requerido."
+        case "wrong_phone":
+            return "El teléfono con el que se escaneó el QR no está registrado como el bot. Si deseas cambiarlo hazlo desde las configuraciones."
         default:
             return "Error interno"
     }
@@ -56,7 +64,8 @@ export async function presentLoading(message = "Por favor espere...") {
 }
 
 export const errors = {
-    user_not_found: "user-not-found"
+    user_not_found: "user-not-found",
+    wrong_phone: "wrong_phone"
 }
 
 export const capitalize = (word: string) => {
@@ -81,4 +90,19 @@ export async function confirmation(message: string, handlerFunction: Function) {
     ];
     document.body.appendChild(alert);
     return await alert.present();
+}
+
+export async function uploadFile(file: File, folder: string) {
+    return new Promise(async (resolve, reject) => {
+        const name = setFileName(file.type)
+        const upload = storage.child(`${folder}/${name}`).put(file)
+        upload.then(snap => snap).then(() => {
+            return resolve(upload.snapshot.ref.getDownloadURL())
+        }).catch(e => reject(e))
+    })
+}
+
+export function setFileName(type: string) {
+    const extension = type.split("/")[1];
+    return `${v4()}.${extension};`
 }

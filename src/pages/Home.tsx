@@ -2,7 +2,6 @@ import { IonPage, IonHeader, IonToolbar, IonButtons, IonTitle, IonContent, IonBu
 import { chevronForwardCircleOutline } from 'ionicons/icons'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import support from "../assets/support.gif"
 
 export const Home: React.FC = () => {
     return (

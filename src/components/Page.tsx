@@ -1,29 +1,18 @@
-import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
-import { Dashboard } from '../pages/Dashboard';
-import { appPages } from '../routes';
+import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { add } from 'ionicons/icons';
 import { capitalize } from '../services/utils.service';
 
-const Page: React.FC = () => {
-
-  const { name } = useParams<{ name: string; }>();
-  const [content, setContent] = useState<React.FC>(Dashboard)
-
-  const searchContent = () => {
-    return appPages.find(page => page.url.endsWith(name))?.Component || Dashboard
-  }
-
-  useEffect(() => {
-    setContent(searchContent())
-  }, [name])
-
-
-
+const Page: React.FC<{ name: string, create?: Function }> = ({ name, children, create }) => {
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
+          {create && <IonButtons slot="secondary">
+            <IonButton onClick={() => create()}>
+              <IonIcon slot="icon-only" icon={add} />
+            </IonButton>
+          </IonButtons>}
+
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
@@ -31,13 +20,13 @@ const Page: React.FC = () => {
         </IonToolbar>
       </IonHeader>
 
-      <IonContent className="ion-padding-horizontal" fullscreen>
+      <IonContent className="ion-padding" fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">{capitalize(name)}</IonTitle>
           </IonToolbar>
         </IonHeader>
-        {content}
+        {children}
       </IonContent>
     </IonPage>
   );

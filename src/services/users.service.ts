@@ -1,6 +1,6 @@
 import { auth, db } from "../firebase";
 import localforage from "localforage"
-import { confirmation, errors, firebaseErrors, presentLoading, presentToast } from "./utils.service";
+import { confirmation, errors, errorHandler, presentLoading, presentToast } from "./utils.service";
 
 export default class UsersService {
     static async signIn(email: string, password: string) {
@@ -10,11 +10,16 @@ export default class UsersService {
             const userData = await db.collection("users").doc(user?.uid).get()
             await localforage.setItem("userData", { ...userData.data(), uid: user?.uid })
         } catch (error) {
-            await presentToast(firebaseErrors(error.code), "danger")
+            await presentToast(errorHandler(error.code), "danger")
         } finally {
             loading.dismiss()
         }
     }
+
+    public get currentUid(): string {
+        return auth.currentUser?.uid || "";
+    }
+
     static async getCurrentUserData() {
         const uid = auth.currentUser?.uid
         if (!uid) throw errors.user_not_found
@@ -33,10 +38,15 @@ export default class UsersService {
             try {
                 await auth.signOut()
             } catch (error) {
-                await presentToast(firebaseErrors(error.code), "danger")
+                await presentToast(errorHandler(error.code), "danger")
             } finally {
                 loading.dismiss()
             }
         })
+    }
+    static async changeWhatsappStatus(userId: string, running: boolean) {
+        await db.collection("user").doc(userId).set({
+            whatsappRunning: running
+        }, { merge: true })
     }
 }

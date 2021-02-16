@@ -1,7 +1,9 @@
 import React from 'react'
 import Page from '../components/Page'
 
-export const Orders: React.FC = () => {
-    return <h1>Contenido de las ordenes</h1>
+export default class Orders extends React.Component {
+    render() {
+        return <Page name="Ordenes"></Page>
 
+    }
 }

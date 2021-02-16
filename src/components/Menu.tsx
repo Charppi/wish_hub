@@ -12,17 +12,15 @@ import {
   IonSplitPane,
 } from '@ionic/react';
 
-import { Redirect, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { logOut } from 'ionicons/icons';
 import './Menu.css';
 import React, { useEffect, useState } from 'react';
 import { IonReactRouter } from '@ionic/react-router';
 
-import * as Routes from "../routes"
 import UsersService from '../services/users.service';
-import { Answers } from '../pages/Answers';
-import Page from './Page';
-
+import { appPages } from "../routes"
+import { presentLoading } from '../services/utils.service';
 interface MenuState {
   name: string
   email: string
@@ -34,8 +32,10 @@ const Menu: React.FC = () => {
   const handleSignOut = async () => UsersService.signOut()
 
   const getCurrentUserData = async () => {
+    const loader = await presentLoading()
     const user = await UsersService.getCurrentUserData();
     setUserData(user)
+    loader.dismiss()
   }
 
   useEffect(() => {
@@ -50,7 +50,7 @@ const Menu: React.FC = () => {
             <IonList id="inbox-list">
               <IonListHeader>{userData.name}</IonListHeader>
               <IonNote>{userData.email}</IonNote>
-              {Routes.appPages.map((appPage, index) => {
+              {appPages.map((appPage, index) => {
                 return <IonMenuToggle key={index} autoHide={false}>
                   <IonItem routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
                     <IonIcon slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
@@ -69,12 +69,9 @@ const Menu: React.FC = () => {
           </IonContent>
         </IonMenu>
         <IonRouterOutlet id="main">
-          <Route path="/" exact={true}>
-            <Redirect to="/administracion/bot" />
-          </Route>
-          <Route path="/administracion/:name" exact={true}>
-            <Page />
-          </Route>
+          {appPages.map((routes, i) => {
+            return <Route key={i} path={routes.url} render={() => routes.Component} exact={true} />
+          })}
         </IonRouterOutlet>
       </IonSplitPane>
     </IonReactRouter>
