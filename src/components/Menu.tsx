@@ -21,13 +21,10 @@ import { IonReactRouter } from '@ionic/react-router';
 import UsersService from '../services/users.service';
 import { appPages } from "../routes"
 import { presentLoading } from '../services/utils.service';
-interface MenuState {
-  name: string
-  email: string
-}
+import { Users } from '../models/users';
 
 const Menu: React.FC = () => {
-  const [userData, setUserData] = useState<MenuState>({ email: "", name: "" });
+  const [userData, setUserData] = useState<Users>({ email: "", name: "" });
 
   const handleSignOut = async () => UsersService.signOut()
 

@@ -7,7 +7,7 @@ export default class UsersService {
         const loading = await presentLoading()
         try {
             const { user } = await auth.signInWithEmailAndPassword(email, password);
-            const userData = await db.collection("users").doc(user?.uid).get()
+            const userData = await db.users.doc(user?.uid).get()
             await localforage.setItem("userData", { ...userData.data(), uid: user?.uid })
         } catch (error) {
             await presentToast(errorHandler(error.code), "danger")
@@ -16,8 +16,8 @@ export default class UsersService {
         }
     }
 
-    public get currentUid(): string {
-        return auth.currentUser?.uid || "";
+    static currentUid() {
+        return auth.currentUser?.uid!;
     }
 
     static async getCurrentUserData() {
@@ -27,7 +27,7 @@ export default class UsersService {
     }
     static async getUserDataById(uid: string) {
         try {
-            return ((await db.collection("users").doc(uid).get()).data()) as { name: string, email: string }
+            return (await db.users.doc(uid).get()).data()!
         } catch (error) {
             throw error
         }
@@ -45,7 +45,7 @@ export default class UsersService {
         })
     }
     static async changeWhatsappStatus(userId: string, running: boolean) {
-        await db.collection("user").doc(userId).set({
+        await db.users.doc(userId).set({
             whatsappRunning: running
         }, { merge: true })
     }

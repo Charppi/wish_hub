@@ -1,11 +1,11 @@
 import React from 'react'
-import { ModalCreateCategories } from '../components/categories/ModalCreateCategories';
-import { Modal } from '../components/Modal';
+import { CategoriesForm } from '../components/categories/CategoriesForm'
+import { CategoriesList } from '../components/categories/CategoriesList'
 import Page from '../components/Page'
-import { presentLoading } from '../services/utils.service';
+import { Categories as CategoriesI } from "../models/categories"
 
 interface State {
-    isOpenModal: boolean
+    category?: CategoriesI
 }
 interface Props { }
 
@@ -13,14 +13,13 @@ export default class Categories extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props)
         this.state = {
-            isOpenModal: false
+            category: { name: "" }
         }
     }
     render() {
-        return <Page name="Categorías" create={() => this.setState({ isOpenModal: true })}>
-            <Modal name="Crear categoría" showModal={this.state.isOpenModal} onClose={() => this.setState({ isOpenModal: false })}>
-                <ModalCreateCategories />
-            </Modal>
+        return <Page name="Categorías">
+            <CategoriesForm forUpdate={this.state.category} onReset={() => this.setState({ category: { name: "" } })} />
+            <CategoriesList onUpdate={(category) => { this.setState({ category }) }} />
         </Page>
     }
 }

@@ -106,3 +106,7 @@ export function setFileName(type: string) {
     const extension = type.split("/")[1];
     return `${v4()}.${extension};`
 }
+
+export async function errorToast(code: string) {
+    await presentToast(errorHandler(code), "danger")
+}
