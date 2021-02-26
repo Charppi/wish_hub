@@ -1,9 +1,9 @@
 import { albums, albumsOutline, chatbubble, chatbubbleOutline, clipboard, clipboardOutline, cube, cubeOutline, personCircle, personCircleOutline, qrCode, qrCodeOutline, warningOutline, warningSharp } from "ionicons/icons";
 import { Answers } from "./pages/Answers";
-import Categories from "./pages/Categories";
+import { Categories } from "./pages/Categories";
 import Bot from "./pages/Bot";
 import Orders from "./pages/Orders";
-import Products from "./pages/Products";
+import { Products } from "./pages/Products";
 import Profile from "./pages/Profile";
 
 interface AppPage {

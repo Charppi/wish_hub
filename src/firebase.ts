@@ -3,6 +3,7 @@ import "firebase/auth"
 import "firebase/firestore"
 import "firebase/storage";
 import { Categories } from "./models/categories";
+import { Products } from "./models/products";
 import { Users } from "./models/users";
 
 const firebaseConfig = {
@@ -34,5 +35,6 @@ const dataPoint = <T>(collectionPath: string) => firestore.collection(collection
 export const db = {
     users: dataPoint<Users>('users'),
     categories: dataPoint<Categories>('categories'),
+    products: dataPoint<Products>('products'),
 }
 

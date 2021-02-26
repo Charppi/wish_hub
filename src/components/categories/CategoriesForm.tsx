@@ -1,5 +1,5 @@
-import { IonButton, IonCard, IonCardContent, IonIcon, IonInput, IonItem, IonLabel } from '@ionic/react'
-import { add } from 'ionicons/icons'
+import { IonButton, IonButtons, IonCard, IonCardContent, IonIcon, IonInput, IonItem, IonLabel, IonToolbar } from '@ionic/react'
+import { add, attachOutline, backspaceOutline, saveOutline } from 'ionicons/icons'
 import React, { forwardRef, useEffect, useRef, useState } from 'react'
 import { Categories } from '../../models/categories'
 import CategoriesService from '../../services/categories.service'
@@ -60,25 +60,26 @@ export const CategoriesForm: React.FC<Props> = ({ onReset, forUpdate }) => {
         }
     }, [forUpdate])
 
-    return <IonCard>
-        <IonCardContent className="ion-padding">
-            <IonItem>
-                <IonLabel>Nombre:</IonLabel>
-                <IonInput value={category?.name} onIonChange={(e) => setCategory({ ...category, name: e.detail.value! })} />
-                <IonButton slot="end" fill="clear" onClick={handleResetForm}>
-                    <IonIcon slot="icon-only" icon={add} />
-                </IonButton>
-            </IonItem>
-            {file && <IonItem>
-                <IonLabel>Archivo:</IonLabel>
-                <span className="ion-text">{currentFileName}</span>
-            </IonItem>}
-            <form action="" id="file-form" onReset={() => handleResetFile()}>
-                <input type="file" hidden id="file" accept="application/pdf" onChange={handleFileChange} />
-                {file && <IonButton type="reset" color="danger" expand="block" fill="outline">Quitar archivo</IonButton>}
-            </form>
-            <IonButton expand="block" fill="outline" color="tertiary" onClick={handleLoadFile}>Cargar archivo</IonButton>
-            <IonButton disabled={(category.name.length == 0)} expand="block" fill="outline" onClick={handleSafeOrUpdate}>Guardar categoría</IonButton>
-        </IonCardContent>
-    </IonCard>
+    return <>
+        <IonItem lines="none">
+            <IonLabel>Nombre:</IonLabel>
+            <IonInput value={category?.name} onIonChange={(e) => setCategory({ ...category, name: e.detail.value! })} />
+        </IonItem>
+        {file && <IonItem>
+            <IonLabel>Archivo:</IonLabel>
+            <span className="ion-text">{currentFileName}</span>
+        </IonItem>}
+        <form action="" id="file-form" onReset={() => handleResetFile()}>
+            <input type="file" hidden id="file" accept="application/pdf" onChange={handleFileChange} />
+            {file && <IonButton expand="block" type="reset" color="danger" fill="outline">Quitar archivo</IonButton>}
+        </form>
+        <IonButton className="ion-margin-top" expand="block" fill="outline" color="tertiary" onClick={handleLoadFile}>
+            Adjuntar archivo
+            <IonIcon icon={attachOutline} />
+        </IonButton>
+        <IonButton className="ion-margin-top" expand="block" disabled={(category.name.length == 0)} fill="outline" onClick={handleSafeOrUpdate}>
+            Guardar
+            <IonIcon icon={saveOutline} />
+        </IonButton>
+    </>
 }

@@ -20,7 +20,7 @@ const Page: React.FC<{ name: string, create?: Function }> = ({ name, children, c
         </IonToolbar>
       </IonHeader>
 
-      <IonContent className="ion-padding" fullscreen>
+      <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">{capitalize(name)}</IonTitle>
