@@ -1,6 +1,7 @@
 import { auth, db } from "../firebase";
 import localforage from "localforage"
-import { confirmation, errors, errorHandler, presentLoading, presentToast } from "./utils.service";
+import { confirmation, errors, errorHandler, presentLoading, presentToast, errorToast } from "./utils.service";
+import { Users } from "../models/users";
 
 export default class UsersService {
     static async signIn(email: string, password: string) {
@@ -44,9 +45,17 @@ export default class UsersService {
             }
         })
     }
-    static async changeWhatsappStatus(userId: string, running: boolean) {
-        await db.users.doc(userId).set({
-            whatsappRunning: running
-        }, { merge: true })
+    static async signUp(_: Users) {
+        const loader = await presentLoading()
+        try {
+            const { user } = await auth.createUserWithEmailAndPassword(_.email, _.password!);
+            _.uid = user?.uid
+            await db.users.doc(_.uid).set(_)
+            presentToast("Usuario creado correctamente. Bienvenido a Wishub xd.")
+        } catch (error) {
+            errorToast(error.code)
+        } finally {
+            await loader.dismiss()
+        }
     }
 }

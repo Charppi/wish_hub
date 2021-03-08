@@ -2,6 +2,7 @@ import { IonPage, IonHeader, IonToolbar, IonButtons, IonTitle, IonContent, IonBu
 import { chevronForwardCircleOutline } from 'ionicons/icons'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { SignUp } from './SignUp'
 
 export const Home: React.FC = () => {
     return (
@@ -13,41 +14,41 @@ export const Home: React.FC = () => {
                             <IonIcon slot="icon-only" icon={chevronForwardCircleOutline} />
                         </IonButton>
                     </IonButtons>
-                    <IonTitle>Wabot</IonTitle>
+                    <IonTitle>WispHub</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>
                 <IonHeader collapse="condense">
                     <IonToolbar>
-                        <IonTitle size="large">Wabot</IonTitle>
+                        <IonTitle size="large">WispHub</IonTitle>
                     </IonToolbar>
                 </IonHeader>
                 <IonGrid>
-                    <IonRow className="ion-justify-content-center ion-align-items-center">
+                    <IonRow>
                         <IonCol sizeMd="6" sizeSm="12">
                             <IonCard>
                                 <IonCardHeader>
                                     <IonCardSubtitle>
-                                        Automatiza tus ventas usando
+                                        Administra tus Wisp y OLT's desde
                         </IonCardSubtitle>
                                     <IonCardTitle>
-                                        Wabot
+                                        WispHub
                         </IonCardTitle>
                                 </IonCardHeader>
                                 <IonCardContent>
                                     <p>
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius iste voluptatum temporibus id perferendis voluptate officia culpa, nesciunt animi dicta sunt quae molestiae quaerat autem nam neque sapiente, impedit odit.
-        </p>
+                                        Sistema de administarcion de Wisp y OLT's en la nube
+                                    </p>
                                 </IonCardContent>
                                 <IonCardContent>
-                                    <Link style={{ textDecoration: "none" }} to="/signup">
-                                        <IonButton expand="block" color="tertiary" fill="outline" >Crear cuenta</IonButton>
-                                    </Link>
                                     <Link style={{ textDecoration: "none" }} to="/signin">
-                                        <IonButton expand="block" color="primary" fill="outline">Iniciar sesion</IonButton>
+                                        <IonButton expand="block" color="primary" fill="outline">Ingresar</IonButton>
                                     </Link>
                                 </IonCardContent>
                             </IonCard>
+                        </IonCol>
+                        <IonCol>
+                            <SignUp />
                         </IonCol>
                     </IonRow>
                 </IonGrid>

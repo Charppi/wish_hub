@@ -1,9 +1,8 @@
 export interface Users {
-    name: string
-    phone?: number
     uid?: string
-    image?: string
-    fcmToken?: string
+    names: string
+    lastNames: string
     email: string
-    whatsappRunning?: boolean
+    planId?: string
+    password?: string
 }
