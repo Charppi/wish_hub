@@ -25,11 +25,12 @@ import { appPages, AppPage } from "../routes"
 import { presentLoading } from '../services/utils.service';
 import { Users } from '../models/users';
 import I18nService from '../services/i18n';
+import { LangBodyInterface } from '../i18n/labels';
 
 const Menu: React.FC = () => {
   const [userData, setUserData] = useState<Users | null>(null);
   const [routes, setRoutes] = useState<AppPage[]>([]);
-  const [currentLangName, setCurrentLangName] = useState<string | null>(null)
+  const [currentLang, setCurrentLang] = useState<LangBodyInterface | null>(null)
 
   const handleSignOut = async () => UsersService.signOut()
 
@@ -40,18 +41,33 @@ const Menu: React.FC = () => {
     loader.dismiss()
   }
 
+  const getCurrentLangName = async () => {
+    const currentLangName = await I18nService.selectLabels()
+    setCurrentLang(currentLangName)
+  }
+
   const getRoutes = async () => {
     const routes = await appPages()
-    const currentLangName = await I18nService.getCurrentLangName()
-    setCurrentLangName(currentLangName)
     setRoutes(routes)
+  }
+
+  const changeCurrentLang = async (lang: "en" | "es" | "pl") => {
+    await I18nService.setLang(lang);
+    await initialize()
+  }
+
+  const initialize = async () => {
+    await getCurrentLangName()
+    await getCurrentUserData()
+    await getRoutes()
   }
 
 
 
   useEffect(() => {
-    getCurrentUserData()
-    getRoutes()
+
+    initialize()
+
   }, [])
 
   return (
@@ -63,11 +79,10 @@ const Menu: React.FC = () => {
               <IonListHeader>{userData?.names}</IonListHeader>
               <IonNote>{userData?.email}</IonNote>
               <IonItem>
-                <IonLabel>Idioma actual</IonLabel>
-                <IonSelect value={currentLangName}>
-                  <IonSelectOption value={currentLangName}>Español</IonSelectOption>
-                  <IonSelectOption>English</IonSelectOption>
-                  <IonSelectOption>Portugues</IonSelectOption>
+                <IonSelect value={currentLang?.shortName} onIonChange={(e) => { changeCurrentLang(e.detail.value!) }}>
+                  <IonSelectOption value="es">Español</IonSelectOption>
+                  <IonSelectOption value="en">English</IonSelectOption>
+                  <IonSelectOption value="pl">Portugues</IonSelectOption>
                 </IonSelect>
               </IonItem>
               {routes.map((appPage, index) => {
@@ -81,7 +96,7 @@ const Menu: React.FC = () => {
               <IonMenuToggle autoHide={false}>
                 <IonItem style={{ cursor: "pointer" }} onClick={handleSignOut} detail={false}>
                   <IonIcon slot="start" icon={logOut} />
-                  <IonLabel>Cerrar sesion</IonLabel>
+                  <IonLabel>{currentLang?.menu.signout}</IonLabel>
                 </IonItem>
               </IonMenuToggle>
             </IonList>

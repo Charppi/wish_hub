@@ -1,6 +1,9 @@
 import localforage from 'localforage'
 import { labels } from '../i18n/labels';
 
+interface Langs {
+
+}
 
 export default class I18nService {
     static lang: "es" | "en" | "pl" = "es"
@@ -10,10 +13,11 @@ export default class I18nService {
         else await localforage.setItem("currentLang", "es");
         return labels[this.lang]
     }
-    static async getCurrentLangName() {
-        return labels[await this.getCurrentLang()].name
+
+    static async getCurrentLang(): Promise<any> {
+        return (await localforage.getItem("currentLang")) as "es" | "en" | "pl";
     }
-    static async getCurrentLang() {
-        return (await localforage.getItem<"es" | "en" | "pl">("currentLang")) || "en";
+    static async setLang(lang: "es" | "en" | "pl") {
+        await localforage.setItem("currentLang", lang)
     }
 }

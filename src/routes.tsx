@@ -14,17 +14,17 @@ export interface AppPage {
 
 export const appPages = async (): Promise<AppPage[]> => {
     const lang = await I18nService.selectLabels()
-    
+
     return [
         {
-            title: lang.menu.home,
+            title: lang?.menu?.home,
             url: '/administracion/',
             iosIcon: homeOutline,
             mdIcon: home,
             Component: <DashboardHome />
         },
         {
-            title: lang.menu.customers,
+            title: lang?.menu?.customers,
             url: '/administracion/clientes',
             iosIcon: peopleOutline,
             mdIcon: people,
