@@ -1,4 +1,4 @@
-import { IonApp } from '@ionic/react';
+import { IonApp, IonLoading } from '@ionic/react';
 import Menu from './components/Menu';
 
 /* Core CSS required for Ionic components to work properly */
@@ -31,28 +31,50 @@ import { Home } from './pages/Home';
 import { SignIn } from './pages/SignIn';
 import { SignUp } from './pages/SignUp';
 import { auth } from './firebase';
+import { AppPage, appPages } from './routes';
 
 const App: React.FC = () => {
   const [logged, setIsLogged] = useState(false)
+  const [isBusy, setIsBusy] = useState(true)
+  const [routes, setRoutes] = useState<AppPage[]>([]);
+
+  const getRoutes = async () => {
+    const routes = await appPages()
+    setRoutes(routes)
+  }
+
+  const initialize = async () => {
+    await getRoutes()
+  }
+
   useEffect(() => {
-    auth.onAuthStateChanged(user => setIsLogged(!!user))
+    initialize()
+    const unsubscriber = auth.onAuthStateChanged(user => {
+      setIsLogged(!!user)
+      setIsBusy(false)
+    })
+
+    return () => unsubscriber()
   }, [])
 
-  const privateRoute = (Component: React.FC) => logged ? <Component /> : <Redirect to="/home" />
-  const publicRoute = (Component: React.FC) => !logged ? <Component /> : <Redirect to="/administracion/" />
+  const privateRoute = () => logged ? <Menu routes={routes} /> : <Redirect to="/home" />
+  const publicRoute = (Component: React.FC) => !logged ? <Component /> : <Redirect to="/administracion/home" />
 
   return (
     <IonApp>
       <Router>
-        {logged ? <Redirect to="/administracion/" /> : <Redirect to="/home" />}
+        {isBusy ?
+          <IonLoading isOpen={isBusy} backdropDismiss={false}></IonLoading>
+          : logged ? <Redirect to="/administracion/home" /> : <Redirect to="/home" />
+        }
         <Switch>
-          <Route path="/home" render={() => <Home />} />
+          <Route path="/home" render={() => publicRoute(Home)} />
           <Route path="/signin" render={() => publicRoute(SignIn)} />
           <Route path="/signup" render={() => publicRoute(SignUp)} />
-          <Route path="/administracion" render={() => privateRoute(Menu)} />
+          <Route path="/administracion" render={() => privateRoute()} />
         </Switch>
       </Router>
-    </IonApp>
+    </IonApp >
   );
 };
 

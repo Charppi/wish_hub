@@ -18,7 +18,7 @@ export const appPages = async (): Promise<AppPage[]> => {
     return [
         {
             title: lang?.menu?.home,
-            url: '/administracion/',
+            url: '/administracion/home',
             iosIcon: homeOutline,
             mdIcon: home,
             Component: <DashboardHome />

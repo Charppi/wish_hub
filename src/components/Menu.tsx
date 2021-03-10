@@ -27,10 +27,10 @@ import { Users } from '../models/users';
 import I18nService from '../services/i18n';
 import { LangBodyInterface } from '../i18n/labels';
 
-const Menu: React.FC = () => {
+const Menu: React.FC<{ routes: AppPage[] }> = ({ routes }) => {
   const [userData, setUserData] = useState<Users | null>(null);
-  const [routes, setRoutes] = useState<AppPage[]>([]);
   const [currentLang, setCurrentLang] = useState<LangBodyInterface | null>(null)
+
 
   const handleSignOut = async () => UsersService.signOut()
 
@@ -46,10 +46,7 @@ const Menu: React.FC = () => {
     setCurrentLang(currentLangName)
   }
 
-  const getRoutes = async () => {
-    const routes = await appPages()
-    setRoutes(routes)
-  }
+
 
   const changeCurrentLang = async (lang: "en" | "es" | "pl") => {
     await I18nService.setLang(lang);
@@ -59,15 +56,10 @@ const Menu: React.FC = () => {
   const initialize = async () => {
     await getCurrentLangName()
     await getCurrentUserData()
-    await getRoutes()
   }
 
-
-
   useEffect(() => {
-
     initialize()
-
   }, [])
 
   return (
@@ -103,8 +95,8 @@ const Menu: React.FC = () => {
           </IonContent>
         </IonMenu>
         <IonRouterOutlet id="main">
-          {routes.map((routes, i) => {
-            return <Route key={i} path={routes.url} render={() => routes.Component} exact={true} />
+          {routes.map((route, i) => {
+            return <Route key={i} path={route.url} render={() => route.Component} exact={true} />
           })}
         </IonRouterOutlet>
       </IonSplitPane>
