@@ -23,7 +23,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   Redirect
 } from "react-router-dom";
 import { useEffect, useState } from 'react';
@@ -31,24 +30,15 @@ import { Home } from './pages/Home';
 import { SignIn } from './pages/SignIn';
 import { SignUp } from './pages/SignUp';
 import { auth } from './firebase';
-import { AppPage, appPages } from './routes';
+import { LangProvider } from './components/LangProvider';
+
 
 const App: React.FC = () => {
+
   const [logged, setIsLogged] = useState(false)
   const [isBusy, setIsBusy] = useState(true)
-  const [routes, setRoutes] = useState<AppPage[]>([]);
-
-  const getRoutes = async () => {
-    const routes = await appPages()
-    setRoutes(routes)
-  }
-
-  const initialize = async () => {
-    await getRoutes()
-  }
 
   useEffect(() => {
-    initialize()
     const unsubscriber = auth.onAuthStateChanged(user => {
       setIsLogged(!!user)
       setIsBusy(false)
@@ -57,23 +47,25 @@ const App: React.FC = () => {
     return () => unsubscriber()
   }, [])
 
-  const privateRoute = () => logged ? <Menu routes={routes} /> : <Redirect to="/home" />
+  const privateRoute = () => logged ? <Menu /> : <Redirect to="/home" />
   const publicRoute = (Component: React.FC) => !logged ? <Component /> : <Redirect to="/administracion/home" />
 
   return (
     <IonApp>
-      <Router>
-        {isBusy ?
-          <IonLoading isOpen={isBusy} backdropDismiss={false}></IonLoading>
-          : logged ? <Redirect to="/administracion/home" /> : <Redirect to="/home" />
-        }
-        <Switch>
-          <Route path="/home" render={() => publicRoute(Home)} />
-          <Route path="/signin" render={() => publicRoute(SignIn)} />
-          <Route path="/signup" render={() => publicRoute(SignUp)} />
-          <Route path="/administracion" render={() => privateRoute()} />
-        </Switch>
-      </Router>
+      <LangProvider>
+        <Router>
+          {isBusy ?
+            <IonLoading isOpen={isBusy} backdropDismiss={false}></IonLoading>
+            : logged ? <Redirect to="/administracion/home" /> : <Redirect to="/home" />
+          }
+          <Switch>
+            <Route path="/home" render={() => publicRoute(Home)} />
+            <Route path="/signin" render={() => publicRoute(SignIn)} />
+            <Route path="/signup" render={() => publicRoute(SignUp)} />
+            <Route path="/administracion" render={() => privateRoute()} />
+          </Switch>
+        </Router>
+      </LangProvider>
     </IonApp >
   );
 };

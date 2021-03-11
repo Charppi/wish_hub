@@ -3,7 +3,7 @@ import Page from '../components/Page'
 
 export const Clients: React.FC = () => {
     return (
-        <Page name="Clientes">
+        <Page name="customers">
 
         </Page>
     )

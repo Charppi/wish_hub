@@ -13,7 +13,6 @@ export default class I18nService {
         else await localforage.setItem("currentLang", "es");
         return labels[this.lang]
     }
-
     static async getCurrentLang(): Promise<any> {
         return (await localforage.getItem("currentLang")) as "es" | "en" | "pl";
     }

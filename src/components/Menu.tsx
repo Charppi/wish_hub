@@ -17,20 +17,21 @@ import {
 import { Route } from 'react-router-dom';
 import { logOut } from 'ionicons/icons';
 import './Menu.css';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { IonReactRouter } from '@ionic/react-router';
 
 import UsersService from '../services/users.service';
-import { appPages, AppPage } from "../routes"
+import { AppPage } from "../routes"
 import { presentLoading } from '../services/utils.service';
 import { Users } from '../models/users';
 import I18nService from '../services/i18n';
-import { LangBodyInterface } from '../i18n/labels';
+import { labels } from '../i18n/labels';
+import { LangContext } from './LangProvider';
+import { appPages as routes } from '../routes'
 
-const Menu: React.FC<{ routes: AppPage[] }> = ({ routes }) => {
+const Menu: React.FC = () => {
   const [userData, setUserData] = useState<Users | null>(null);
-  const [currentLang, setCurrentLang] = useState<LangBodyInterface | null>(null)
-
+  const [context, setContext] = useContext(LangContext)
 
   const handleSignOut = async () => UsersService.signOut()
 
@@ -41,69 +42,55 @@ const Menu: React.FC<{ routes: AppPage[] }> = ({ routes }) => {
     loader.dismiss()
   }
 
-  const getCurrentLangName = async () => {
-    const currentLangName = await I18nService.selectLabels()
-    setCurrentLang(currentLangName)
-  }
-
-
-
   const changeCurrentLang = async (lang: "en" | "es" | "pl") => {
-    await I18nService.setLang(lang);
-    await initialize()
+    setContext(labels[lang])
   }
 
-  const initialize = async () => {
-    await getCurrentLangName()
-    await getCurrentUserData()
-  }
 
   useEffect(() => {
-    initialize()
+    getCurrentUserData()
   }, [])
 
-  return (
-    <IonReactRouter>
-      <IonSplitPane contentId="main">
-        <IonMenu contentId="main" type="overlay">
-          <IonContent>
-            <IonList id="inbox-list">
-              <IonListHeader>{userData?.names}</IonListHeader>
-              <IonNote>{userData?.email}</IonNote>
-              <IonItem>
-                <IonSelect value={currentLang?.shortName} onIonChange={(e) => { changeCurrentLang(e.detail.value!) }}>
-                  <IonSelectOption value="es">Español</IonSelectOption>
-                  <IonSelectOption value="en">English</IonSelectOption>
-                  <IonSelectOption value="pl">Portugues</IonSelectOption>
-                </IonSelect>
-              </IonItem>
-              {routes.map((appPage, index) => {
-                return <IonMenuToggle key={index} autoHide={false}>
-                  <IonItem routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
-                    <IonIcon slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
-                    <IonLabel>{appPage.title}</IonLabel>
-                  </IonItem>
-                </IonMenuToggle>
-              })}
-              <IonMenuToggle autoHide={false}>
-                <IonItem style={{ cursor: "pointer" }} onClick={handleSignOut} detail={false}>
-                  <IonIcon slot="start" icon={logOut} />
-                  <IonLabel>{currentLang?.menu.signout}</IonLabel>
+
+  return <IonReactRouter>
+    <IonSplitPane contentId="main">
+      <IonMenu contentId="main" type="overlay">
+        <IonContent>
+          <IonList id="inbox-list">
+            <IonListHeader>{userData?.names}</IonListHeader>
+            <IonNote>{userData?.email}</IonNote>
+            <IonItem>
+              <IonSelect value={context.shortName} onIonChange={(e) => { changeCurrentLang(e.detail.value!) }}>
+                <IonSelectOption value="es">Español</IonSelectOption>
+                <IonSelectOption value="en">English</IonSelectOption>
+                <IonSelectOption value="pl">Portugués</IonSelectOption>
+              </IonSelect>
+            </IonItem>
+            {routes.map((appPage, index) => {
+              return <IonMenuToggle key={index} autoHide={false}>
+                <IonItem routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
+                  <IonIcon slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
+                  <IonLabel>{context.menu[appPage.title]}</IonLabel>
                 </IonItem>
               </IonMenuToggle>
-            </IonList>
-          </IonContent>
-        </IonMenu>
-        <IonRouterOutlet id="main">
-          {routes.map((route, i) => {
-            return <Route key={i} path={route.url} render={() => route.Component} exact={true} />
-          })}
-        </IonRouterOutlet>
-      </IonSplitPane>
-    </IonReactRouter>
+            })}
+            <IonMenuToggle autoHide={false}>
+              <IonItem style={{ cursor: "pointer" }} onClick={handleSignOut} detail={false}>
+                <IonIcon slot="start" icon={logOut} />
+                <IonLabel>{context.menu.signout}</IonLabel>
+              </IonItem>
+            </IonMenuToggle>
+          </IonList>
+        </IonContent>
+      </IonMenu>
+      <IonRouterOutlet id="main">
+        {routes.map((route, i) => {
+          return <Route key={i} path={route.url} render={() => route.Component} exact={true} />
+        })}
+      </IonRouterOutlet>
+    </IonSplitPane>
+  </IonReactRouter>
 
-
-  );
 };
 
 export default Menu;
