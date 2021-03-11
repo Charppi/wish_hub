@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 import { capitalize } from '../services/utils.service';
 import { LangContext } from './LangProvider';
 
-const Page: React.FC<{ name: "home" | "customers", create?: Function }> = ({ name, children, create }) => {
+const Page: React.FC<{ name: "home" | "customers" | "zones", create?: Function }> = ({ name, children, create }) => {
 
   const [context] = useContext(LangContext)
 

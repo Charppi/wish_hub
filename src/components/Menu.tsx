@@ -21,10 +21,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { IonReactRouter } from '@ionic/react-router';
 
 import UsersService from '../services/users.service';
-import { AppPage } from "../routes"
 import { presentLoading } from '../services/utils.service';
 import { Users } from '../models/users';
-import I18nService from '../services/i18n';
 import { labels } from '../i18n/labels';
 import { LangContext } from './LangProvider';
 import { appPages as routes } from '../routes'
@@ -46,11 +44,9 @@ const Menu: React.FC = () => {
     setContext(labels[lang])
   }
 
-
   useEffect(() => {
     getCurrentUserData()
   }, [])
-
 
   return <IonReactRouter>
     <IonSplitPane contentId="main">

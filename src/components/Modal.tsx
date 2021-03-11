@@ -2,7 +2,7 @@ import { IonModal, IonContent, IonButton, IonToolbar, IonBackButton, IonButtons,
 import { close } from 'ionicons/icons'
 import React from 'react'
 
-export const Modal: React.FC<{ showModal: boolean, onClose: Function, name: string }> = ({ showModal, children, onClose, name }) => {
+export const Modal: React.FC<{ showModal: boolean, onClose: Function, }> = ({ showModal, children, onClose }) => {
     return <IonModal isOpen={showModal} onDidDismiss={() => onClose()}>
         <IonToolbar>
             <IonButtons slot="start">
@@ -10,7 +10,6 @@ export const Modal: React.FC<{ showModal: boolean, onClose: Function, name: stri
                     <IonIcon icon={close} />
                 </IonButton>
             </IonButtons>
-            <IonTitle>{name}</IonTitle>
         </IonToolbar>
         <IonContent className="ion-padding">
             {children}

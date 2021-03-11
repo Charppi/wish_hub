@@ -3,6 +3,7 @@ import "firebase/auth"
 import "firebase/firestore"
 import "firebase/storage";
 import { Users } from "./models/users";
+import { Zones } from "./models/zones";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAV8IlwwOu0w0gE90L2sicpSUO8kYHF_b4",
@@ -32,5 +33,6 @@ const dataPoint = <T>(collectionPath: string) => firestore.collection(collection
 
 export const db = {
     users: dataPoint<Users>('users'),
+    zones: dataPoint<Zones>('zones'),
 }
 

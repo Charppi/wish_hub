@@ -15,11 +15,13 @@ interface LangMenuInterface {
     home: string,
     customers: string,
     signout: string
+    zones: string
 }
 
 export interface PagesInterface {
     home: string
     customers: string
+    zones: string
 }
 
 export const es: LangBodyInterface = {
@@ -28,11 +30,13 @@ export const es: LangBodyInterface = {
     menu: {
         home: "Inicio",
         customers: "Clientes",
+        zones: "Zonas",
         signout: "Cerrar sesión"
     },
     pages: {
         home: "Inicio",
-        customers: "Clientes"
+        customers: "Clientes",
+        zones: "Zonas"
     }
 }
 
@@ -42,11 +46,13 @@ export const en: LangBodyInterface = {
     menu: {
         home: "Home",
         customers: "Customers",
+        zones: "Zones",
         signout: "Sign Out"
     },
     pages: {
         home: "Home",
-        customers: "Customers"
+        customers: "Customers",
+        zones: "Zones"
     }
 }
 
@@ -56,11 +62,13 @@ export const pl: LangBodyInterface = {
     menu: {
         home: "Começo",
         customers: "Clientes",
+        zones: "Zonas",
         signout: "Sair"
     },
     pages: {
         home: "Começo",
-        customers: "Clientes"
+        customers: "Clientes",
+        zones: "Zonas"
     }
 }
 
