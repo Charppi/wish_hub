@@ -1,25 +1,34 @@
 import { IonButton, IonInput, IonItem, IonLabel } from '@ionic/react'
-import React, { useState } from 'react'
-import { confirmation } from '../../services/utils.service'
+import React, { useEffect, useState } from 'react'
+import { Zones } from '../../models/zones'
+import { confirmation, presentToast } from '../../services/utils.service'
 import ZonesService from '../../services/zones.service'
 
-export const ZonesForm: React.FC = () => {
-
-    const [name, setName] = useState("")
+export const ZonesForm: React.FC<{ zoneForUpdate: Zones | null }> = ({ zoneForUpdate }) => {
+    const [zone, setZone] = useState<Zones | null>(null)
+    useEffect(() => {
+        setZone(zoneForUpdate)
+    }, [zoneForUpdate])
 
     const handleSubmit = async () => {
-        await ZonesService.createZone(name)
+        console.log(zone);
+        if (zone?.uid) {
+            await ZonesService.updateZone(zone!)
+        } else {
+            await ZonesService.createZone(zone!)
+        }
     }
 
     return <form action="" onSubmit={(e) => {
         e.preventDefault();
-        confirmation(`¿Está seguro de crear la zona ${name}?`, async () => {
+        if (zone?.name.length == 0) return presentToast("Ingrese un nombre, por favor", "danger")
+        confirmation(`¿Está seguro de crear la zona ${zone!.name}?`, async () => {
             await handleSubmit()
         })
     }}>
         <IonItem>
             <IonLabel>Nombre</IonLabel>
-            <IonInput value={name} onIonChange={(e) => { setName(e.detail.value!) }} type="text" />
+            <IonInput value={zone?.name} onIonChange={(e) => { setZone({ ...zone!, name: e.detail.value! }) }} type="text" />
         </IonItem>
         <IonButton type="submit" className="ion-margin-top" expand="block">Guardar</IonButton>
     </form>
