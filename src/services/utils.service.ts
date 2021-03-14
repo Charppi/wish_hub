@@ -1,6 +1,4 @@
 import { Color } from "@ionic/core"
-import { rejects } from "assert";
-import { resolve } from "dns";
 import { v4 } from "uuid"
 import { storage } from "../firebase";
 
@@ -132,4 +130,11 @@ export function numberFormat({ number, decimals = 0, dec_point = '.', thousands_
         s[1] += new Array(prec - s[1].length + 1).join('0');
     }
     return s.join(dec);
+}
+
+export async function isValidObject(object: object, keys: string[]) {
+    for (const key in keys) {
+        if (!Object.prototype.hasOwnProperty.call(object, key)) return false
+    }
+    return true
 }

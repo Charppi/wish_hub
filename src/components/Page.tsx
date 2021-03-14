@@ -1,10 +1,11 @@
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { add } from 'ionicons/icons';
 import { useContext, useEffect, useState } from 'react';
+import { PagesNames } from '../i18n/labels';
 import { capitalize } from '../services/utils.service';
 import { LangContext } from './LangProvider';
 
-const Page: React.FC<{ name: "home" | "customers" | "zones", create?: Function }> = ({ name, children, create }) => {
+const Page: React.FC<{ name: PagesNames, create?: Function }> = ({ name, children, create }) => {
 
   const [context] = useContext(LangContext)
 

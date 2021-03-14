@@ -2,6 +2,7 @@ import firebase from "firebase/app"
 import "firebase/auth"
 import "firebase/firestore"
 import "firebase/storage";
+import { Routers } from "./models/routers";
 import { Users } from "./models/users";
 import { Zones } from "./models/zones";
 
@@ -34,5 +35,6 @@ const dataPoint = <T>(collectionPath: string) => firestore.collection(collection
 export const db = {
     users: dataPoint<Users>('users'),
     zones: dataPoint<Zones>('zones'),
+    routers: dataPoint<Routers>('routers'),
 }
 
