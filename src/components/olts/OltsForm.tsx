@@ -8,7 +8,7 @@ import { FormTextInput } from '../utils/FormTextInput'
 import OltsService from "../../services/olts.service"
 
 
-export const OltsForm: React.FC = () => {
+export const OltsForm: React.FC<{ oltForUpdate: Olts | null }> = ({ oltForUpdate }) => {
     const [context] = useContext(LangContext)
     const [olt, setOlt] = useState<Olts | null>(null)
     const {
@@ -39,10 +39,14 @@ export const OltsForm: React.FC = () => {
     const handleSaveOrUpdate = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         confirmation(context.messages.olts.confirmCreation, async () => {
-            const created = await OltsService.create(olt!)
-            await presentToast(created ? context.messages.olts.savedSuccessfully : context.errors.general.internalError)
+            const saved = await (oltForUpdate ? OltsService.update(olt!) : OltsService.create(olt!))
+            await presentToast(saved ? context.messages.olts.savedSuccessfully : context.errors.general.internalError)
         })
     }
+
+    useEffect(() => {
+        setOlt(oltForUpdate)
+    }, [oltForUpdate])
 
     return <form action="" onSubmit={handleSaveOrUpdate}>
         <FormTextInput value={olt?.name} onIonChange={(val) => setOlt({ ...olt!, name: val })} label={name} />

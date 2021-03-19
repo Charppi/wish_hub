@@ -53,7 +53,7 @@ export function errorHandler(code: string): string {
 }
 
 
-export async function presentLoading(message = "Por favor espere...") {
+export async function presentLoading(message = "") {
     const loading = document.createElement('ion-loading');
     loading.message = message
     document.body.appendChild(loading);

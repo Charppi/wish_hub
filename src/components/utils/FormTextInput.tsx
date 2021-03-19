@@ -9,8 +9,8 @@ export const FormTextInput: React.FC<{
     required?: boolean,
     value?: string
 }> = ({ label, inputType = "text", onIonChange, required = true, value }) => {
-
-    const [localValue, setLocalValue] = useState("")
+    const initialState = ""
+    const [localValue, setLocalValue] = useState(initialState)
 
     const handleValueChange = (value: string) => {
         setLocalValue(value)
@@ -18,7 +18,7 @@ export const FormTextInput: React.FC<{
     }
 
     useEffect(() => {
-        if (value) setLocalValue(value)
+        setLocalValue(value || initialState)
     }, [value])
 
     return <IonItem lines="none">
