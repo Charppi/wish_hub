@@ -71,7 +71,7 @@ const Menu: React.FC = () => {
               </IonMenuToggle>
             })}
             <IonMenuToggle autoHide={false}>
-              <IonItem style={{ cursor: "pointer" }} onClick={handleSignOut} detail={false}>
+              <IonItem lines="none" style={{ cursor: "pointer" }} onClick={handleSignOut} detail={false}>
                 <IonIcon slot="start" icon={logOut} />
                 <IonLabel>{context.menu.signout}</IonLabel>
               </IonItem>

@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react'
-import { en, LangBodyInterface } from '../i18n/labels'
+import { LangBodyInterface } from '../i18n/labels'
+import { en } from "../i18n/en"
 import I18nService from '../services/i18n'
 
 

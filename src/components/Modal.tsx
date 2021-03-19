@@ -11,7 +11,7 @@ export const Modal: React.FC<{ showModal: boolean, onClose: Function, }> = ({ sh
                 </IonButton>
             </IonButtons>
         </IonToolbar>
-        <IonContent className="ion-padding">
+        <IonContent>
             {children}
         </IonContent>
     </IonModal>

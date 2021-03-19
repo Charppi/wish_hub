@@ -1,9 +1,10 @@
-import { home, homeOutline, map, mapOutline, people, peopleOutline, wifi, wifiOutline } from "ionicons/icons";
+import { home, homeOutline, map, mapOutline, people, peopleOutline, wifi, wifiOutline, cellular, cellularOutline } from "ionicons/icons";
 import { PagesNames } from "./i18n/labels";
 import { Clients } from './pages/Clients'
 import { DashboardHome } from "./pages/DashboardHome";
 import { Routers } from "./pages/Routers";
 import { Zones } from "./pages/Zones";
+import { Olts } from "./pages/Olts";
 
 export interface AppPage {
     url: string;
@@ -42,5 +43,12 @@ export const appPages: AppPage[] = [
         iosIcon: wifiOutline,
         mdIcon: wifi,
         Component: <Routers />
+    },
+    {
+        title: "olts",
+        url: '/administracion/olts',
+        Component: <Olts />,
+        iosIcon: cellularOutline,
+        mdIcon: cellular
     }
 ]
