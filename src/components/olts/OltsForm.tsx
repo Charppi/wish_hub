@@ -64,6 +64,6 @@ export const OltsForm: React.FC<{ oltForUpdate: Olts | null }> = ({ oltForUpdate
             <IonCheckbox onIonChange={(e) => setOlt({ ...olt!, IPTvModule: e.detail.checked })}></IonCheckbox>
         </IonItem>
         <FormSelect value={olt?.supportedPONTypes || supportedPON.epon} entries={selectEntries} onIonChange={(value: supportedPONTypes) => setOlt({ ...olt!, supportedPONTypes: value })} label={SupportedPONTypes} />
-        <IonButton className="ion-margin" type="submit">Guardar</IonButton>
+        <IonButton className="ion-margin" type="submit">{context.forms.createButton}</IonButton>
     </form>
 }

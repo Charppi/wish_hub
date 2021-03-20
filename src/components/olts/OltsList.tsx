@@ -25,5 +25,5 @@ export const OltsList: React.FC<{ onClickUpdate(old: Olts): void }> = ({ onClick
     }, [])
 
 
-    return <ListItem entries={olts!} onClickUpdate={onClickUpdate} />
+    return <ListItem readProperty="name" entries={olts!} onClickUpdate={onClickUpdate} />
 }

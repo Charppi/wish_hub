@@ -27,6 +27,10 @@ export const pl: LangBodyInterface = {
         olts: {
             confirmCreation: "Tem certeza que eu salvo o OLT?",
             savedSuccessfully: "OLT salvou com sucesso"
+        },
+        customers: {
+            confirmCreation: "Você tem certeza de salvar este cliente?",
+            savedSuccessfully: "Cliente salvo com sucesso"
         }
     },
     errors: {
@@ -39,13 +43,13 @@ export const pl: LangBodyInterface = {
         }
     },
     forms: {
+        createButton: "Guarda",
         routers: {
             name: "Nome:",
             ip: "IP:",
             password: "Senha:",
             port: "Porta:",
             user: "Do utilizador:",
-            createButton: "Criar"
         },
         olts: {
             IPTvModule: "Módulo Iptv",
@@ -60,6 +64,16 @@ export const pl: LangBodyInterface = {
             password: "Senha do telnet",
             port: "Porta TCP Telnet",
             username: "Nome de usuário do Telnet."
+        },
+        customers: {
+            address: "Endereço",
+            dni: "DNI",
+            email: "O email",
+            lastNames: "Últimos nomes",
+            names: "Nomes",
+            neighborhood: "Vizinhança",
+            phone: "Telefone",
+            postalCode: "Código postal"
         }
     }
 }

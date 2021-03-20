@@ -2,6 +2,7 @@ import firebase from "firebase/app"
 import "firebase/auth"
 import "firebase/firestore"
 import "firebase/storage";
+import { Customers } from "./models/customers";
 import { Olts } from "./models/olts";
 import { Routers } from "./models/routers";
 import { Users } from "./models/users";
@@ -38,5 +39,6 @@ export const db = {
     zones: dataPoint<Zones>('zones'),
     routers: dataPoint<Routers>('routers'),
     olts: dataPoint<Olts>('olts'),
+    customers: dataPoint<Customers>('customers'),
 }
 

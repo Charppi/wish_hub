@@ -31,7 +31,8 @@ interface LangUIMessages {
         confirmCreation: string
         savedSuccessfully: string
     },
-    olts: GenericFormMessages
+    olts: GenericFormMessages,
+    customers: GenericFormMessages
 }
 
 interface LangUIErrors {
@@ -45,13 +46,13 @@ interface LangUIErrors {
 }
 
 interface LangUIForms {
+    createButton: string
     routers: {
         name: string
         user: string
         password: string
         ip: string
         port: string
-        createButton: string
     },
     olts: {
         name: string
@@ -66,6 +67,16 @@ interface LangUIForms {
         OLTHardwareVersion: string
         OLTSoftwareVersion: string
         SupportedPONTypes: string
+    },
+    customers: {
+        names: string
+        lastNames: string
+        dni: string
+        email: string
+        address: string
+        neighborhood: string
+        postalCode: string
+        phone: string
     }
 }
 

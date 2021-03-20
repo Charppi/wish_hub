@@ -1,6 +1,6 @@
 import { home, homeOutline, map, mapOutline, people, peopleOutline, wifi, wifiOutline, cellular, cellularOutline } from "ionicons/icons";
 import { PagesNames } from "./i18n/labels";
-import { Clients } from './pages/Clients'
+import { Customers } from './pages/Customers'
 import { DashboardHome } from "./pages/DashboardHome";
 import { Routers } from "./pages/Routers";
 import { Zones } from "./pages/Zones";
@@ -35,7 +35,7 @@ export const appPages: AppPage[] = [
         url: '/administracion/customers',
         iosIcon: peopleOutline,
         mdIcon: people,
-        Component: <Clients />
+        Component: <Customers />
     },
     {
         title: "routers",

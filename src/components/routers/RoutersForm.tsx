@@ -42,6 +42,6 @@ export const RoutersForm: React.FC<{ forUpdateRouter: Routers | null, zoneId: st
             <IonLabel position="floating">{context.forms.routers.port}</IonLabel>
             <IonInput required onIonChange={(e) => setRouter({ ...router!, port: e.detail.value! })} type="number" value={router?.port} />
         </IonItem>
-        <IonButton type="submit" className="ion-margin-top" fill="outline">Crear</IonButton>
+        <IonButton type="submit" className="ion-margin-top" fill="outline">{context.forms.createButton}</IonButton>
     </form>
 }
