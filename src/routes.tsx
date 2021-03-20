@@ -1,10 +1,11 @@
-import { home, homeOutline, map, mapOutline, people, peopleOutline, wifi, wifiOutline, cellular, cellularOutline } from "ionicons/icons";
+import { home, homeOutline, map, mapOutline, people, peopleOutline, wifi, wifiOutline, cellular, cellularOutline, radioOutline, radio } from "ionicons/icons";
 import { PagesNames } from "./i18n/labels";
 import { Customers } from './pages/Customers'
 import { DashboardHome } from "./pages/DashboardHome";
 import { Routers } from "./pages/Routers";
 import { Zones } from "./pages/Zones";
 import { Olts } from "./pages/Olts";
+import { Wifi } from "./pages/Wifi";
 
 export interface AppPage {
     url: string;
@@ -40,8 +41,8 @@ export const appPages: AppPage[] = [
     {
         title: "routers",
         url: '/administracion/routers',
-        iosIcon: wifiOutline,
-        mdIcon: wifi,
+        iosIcon: radioOutline,
+        mdIcon: radio,
         Component: <Routers />
     },
     {
@@ -50,5 +51,12 @@ export const appPages: AppPage[] = [
         Component: <Olts />,
         iosIcon: cellularOutline,
         mdIcon: cellular
+    },
+    {
+        title: "wifi",
+        url: '/administracion/wifi',
+        Component: <Wifi />,
+        iosIcon: wifi,
+        mdIcon: wifiOutline
     }
 ]

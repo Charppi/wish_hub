@@ -6,6 +6,7 @@ import { Customers } from "./models/customers";
 import { Olts } from "./models/olts";
 import { Routers } from "./models/routers";
 import { Users } from "./models/users";
+import { Wifi } from "./models/wifi";
 import { Zones } from "./models/zones";
 
 const firebaseConfig = {
@@ -40,5 +41,6 @@ export const db = {
     routers: dataPoint<Routers>('routers'),
     olts: dataPoint<Olts>('olts'),
     customers: dataPoint<Customers>('customers'),
+    wifi: dataPoint<Wifi>('wifi')
 }
 

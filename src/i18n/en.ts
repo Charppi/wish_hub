@@ -7,16 +7,18 @@ export const en: LangBodyInterface = {
         home: "Home",
         customers: "Customers",
         zones: "Zones",
-        routers: "Routers",
+        routers: "Mikrotik",
         signout: "Sign Out",
-        olts: "Olt's"
+        olts: "Olt's",
+        wifi: "Wifi"
     },
     pages: {
         home: "Home",
         customers: "Customers",
         zones: "Zones",
-        routers: "Routers",
-        olts: "Olt's"
+        routers: "Mikrotik",
+        olts: "Olt's",
+        wifi: "Wifi"
     },
     messages: {
         routers: {
@@ -31,6 +33,10 @@ export const en: LangBodyInterface = {
         customers: {
             confirmCreation: "Are you sure to save this customer?",
             savedSuccessfully: "Customer saved successfully"
+        },
+        wifi: {
+            confirmCreation: "Are you sure to save this Wifi Router?",
+            savedSuccessfully: "Wifi Router saved successfully"
         }
     },
     errors: {
@@ -45,11 +51,11 @@ export const en: LangBodyInterface = {
     forms: {
         createButton: "Save",
         routers: {
-            name: "Name:",
-            ip: "IP:",
-            password: "Password:",
-            port: "Port:",
-            user: "User:"
+            name: "Name",
+            ip: "IP",
+            password: "Password",
+            port: "Port",
+            user: "User"
         },
         olts: {
             IPTvModule: "Module IPTV",
@@ -74,6 +80,17 @@ export const en: LangBodyInterface = {
             neighborhood: "Neighborhood",
             phone: "Phone",
             postalCode: "Postal code",
+        },
+        wifi: {
+            customerId: "Customer",
+            ip: "IP",
+            mac: "MAC",
+            model: "Model",
+            password: "Password",
+            passwordSsid: "SSID Password",
+            ssdid: "SSID",
+            user: "User",
+            routerId: "Router"
         }
     }
 }

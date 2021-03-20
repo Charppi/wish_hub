@@ -6,6 +6,7 @@ import { LangContext } from '../LangProvider'
 import { FormSelect } from '../utils/FormSelect'
 import { FormTextInput } from '../utils/FormTextInput'
 import OltsService from "../../services/olts.service"
+import { SubmitButton } from '../utils/SubmitButton'
 
 
 export const OltsForm: React.FC<{ oltForUpdate: Olts | null }> = ({ oltForUpdate }) => {
@@ -27,13 +28,13 @@ export const OltsForm: React.FC<{ oltForUpdate: Olts | null }> = ({ oltForUpdate
     } = context.forms.olts
 
     const selectEntries = [{
-        key: supportedPON.epon, value: supportedPON.epon
+        uid: supportedPON.epon, name: supportedPON.epon
     },
     {
-        key: supportedPON.gpon_epon, value: supportedPON.gpon_epon
+        uid: supportedPON.gpon_epon, name: supportedPON.gpon_epon
     },
     {
-        key: supportedPON.gpon, value: supportedPON.gpon
+        uid: supportedPON.gpon, name: supportedPON.gpon
     }]
 
     const handleSaveOrUpdate = (e: React.FormEvent<HTMLFormElement>) => {
@@ -63,7 +64,12 @@ export const OltsForm: React.FC<{ oltForUpdate: Olts | null }> = ({ oltForUpdate
             <IonLabel>{IPTvModule}</IonLabel>
             <IonCheckbox onIonChange={(e) => setOlt({ ...olt!, IPTvModule: e.detail.checked })}></IonCheckbox>
         </IonItem>
-        <FormSelect value={olt?.supportedPONTypes || supportedPON.epon} entries={selectEntries} onIonChange={(value: supportedPONTypes) => setOlt({ ...olt!, supportedPONTypes: value })} label={SupportedPONTypes} />
-        <IonButton className="ion-margin" type="submit">{context.forms.createButton}</IonButton>
+        <FormSelect
+            readProperty="name"
+            value={olt?.supportedPONTypes || supportedPON.epon}
+            entries={selectEntries}
+            onIonChange={(value: supportedPONTypes) => setOlt({ ...olt!, supportedPONTypes: value })}
+            label={SupportedPONTypes} />
+        <SubmitButton />
     </form>
 }

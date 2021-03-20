@@ -4,13 +4,15 @@ import { Routers } from "../../models/routers";
 import RoutersService from "../../services/routers.service";
 import { confirmation, presentLoading, presentToast } from "../../services/utils.service";
 import { LangContext } from "../LangProvider";
+import { FormTextInput } from "../utils/FormTextInput";
+import { SubmitButton } from "../utils/SubmitButton";
 
 export const RoutersForm: React.FC<{ forUpdateRouter: Routers | null, zoneId: string | null }> = ({ forUpdateRouter, zoneId }) => {
     const [router, setRouter] = useState<Routers | null>(null);
     const [context] = useContext(LangContext)
-
+    const { ip, name, password, user, port } = context.forms.routers
     useEffect(() => {
-        if (forUpdateRouter) setRouter(forUpdateRouter)
+        setRouter(forUpdateRouter)
     }, [forUpdateRouter])
 
     const handleSaveRouter = (e: FormEvent<HTMLFormElement>) => {
@@ -26,22 +28,10 @@ export const RoutersForm: React.FC<{ forUpdateRouter: Routers | null, zoneId: st
     }
 
     return <form onSubmit={handleSaveRouter}>
-        <IonItem>
-            <IonLabel position="floating">{context.forms.routers.name}</IonLabel>
-            <IonInput required onIonChange={(e) => setRouter({ ...router!, name: e.detail.value! })} value={router?.name} />
-        </IonItem>
-        <IonItem>
-            <IonLabel position="floating">{context.forms.routers.user}</IonLabel>
-            <IonInput required onIonChange={(e) => setRouter({ ...router!, user: e.detail.value! })} value={router?.user} />
-        </IonItem>
-        <IonItem>
-            <IonLabel position="floating">{context.forms.routers.password}</IonLabel>
-            <IonInput required onIonChange={(e) => setRouter({ ...router!, password: e.detail.value! })} type="password" value={router?.password} />
-        </IonItem>
-        <IonItem>
-            <IonLabel position="floating">{context.forms.routers.port}</IonLabel>
-            <IonInput required onIonChange={(e) => setRouter({ ...router!, port: e.detail.value! })} type="number" value={router?.port} />
-        </IonItem>
-        <IonButton type="submit" className="ion-margin-top" fill="outline">{context.forms.createButton}</IonButton>
+        <FormTextInput value={router?.name} label={name} onIonChange={(val) => setRouter({ ...router!, name: val })} />
+        <FormTextInput value={router?.user} label={user} onIonChange={(val) => setRouter({ ...router!, user: val })} />
+        <FormTextInput value={router?.password} label={password} inputType="password" onIonChange={(val) => setRouter({ ...router!, password: val })} />
+        <FormTextInput value={router?.port} label={port} inputType="number" onIonChange={(val) => setRouter({ ...router!, port: val })} />
+        <SubmitButton />
     </form>
 }

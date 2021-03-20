@@ -7,16 +7,18 @@ export const pl: LangBodyInterface = {
         home: "Começo",
         customers: "Clientes",
         zones: "Zonas",
-        routers: "Routers",
+        routers: "Mikrotik",
         signout: "Sair",
-        olts: "Olt's"
+        olts: "Olt's",
+        wifi: "Wifi"
     },
     pages: {
         home: "Começo",
         customers: "Clientes",
         zones: "Zonas",
-        routers: "Routers",
-        olts: "Olt's"
+        routers: "Mikrotik",
+        olts: "Olt's",
+        wifi: "Wifi"
     },
     messages: {
         routers: {
@@ -31,6 +33,10 @@ export const pl: LangBodyInterface = {
         customers: {
             confirmCreation: "Você tem certeza de salvar este cliente?",
             savedSuccessfully: "Cliente salvo com sucesso"
+        },
+        wifi: {
+            confirmCreation: "Você tem certeza de salvar este roteador WiFi?",
+            savedSuccessfully: "WiFi Router salvo com sucesso"
         }
     },
     errors: {
@@ -45,11 +51,11 @@ export const pl: LangBodyInterface = {
     forms: {
         createButton: "Guarda",
         routers: {
-            name: "Nome:",
-            ip: "IP:",
-            password: "Senha:",
-            port: "Porta:",
-            user: "Do utilizador:",
+            name: "Nome",
+            ip: "IP",
+            password: "Senha",
+            port: "Porta",
+            user: "Do utilizador",
         },
         olts: {
             IPTvModule: "Módulo Iptv",
@@ -74,6 +80,17 @@ export const pl: LangBodyInterface = {
             neighborhood: "Vizinhança",
             phone: "Telefone",
             postalCode: "Código postal"
+        },
+        wifi: {
+            customerId: "Cliente",
+            ip: "IP",
+            mac: "MAC",
+            model: "Modelo",
+            password: "Senha",
+            passwordSsid: "Senha da SSID.",
+            ssdid: "SSID",
+            user: "Do utilizador",
+            routerId: "Router"
         }
     }
 }

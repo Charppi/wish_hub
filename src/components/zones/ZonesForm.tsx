@@ -4,6 +4,7 @@ import { Zones } from '../../models/zones'
 import { confirmation, presentToast } from '../../services/utils.service'
 import ZonesService from '../../services/zones.service'
 import { LangContext } from '../LangProvider'
+import { SubmitButton } from '../utils/SubmitButton'
 
 export const ZonesForm: React.FC<{ zoneForUpdate: Zones | null }> = ({ zoneForUpdate }) => {
     const [context] = useContext(LangContext)
@@ -32,6 +33,6 @@ export const ZonesForm: React.FC<{ zoneForUpdate: Zones | null }> = ({ zoneForUp
             <IonLabel>Nombre</IonLabel>
             <IonInput value={zone?.name} onIonChange={(e) => { setZone({ ...zone!, name: e.detail.value! }) }} type="text" />
         </IonItem>
-        <IonButton type="submit" className="ion-margin-top" expand="block">{context.forms.createButton}</IonButton>
+        <SubmitButton />
     </form>
 }

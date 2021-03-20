@@ -1,14 +1,14 @@
 import { IonItem, IonLabel, IonSelect, IonSelectOption } from "@ionic/react"
 import React, { useEffect, useState } from "react"
 
-interface SelectEntries { key: string | number, value: string | number }
 
 export const FormSelect: React.FC<{
-    entries: SelectEntries[],
+    entries: any[],
     label?: string,
     onIonChange(value: string): void,
-    value?: string
-}> = ({ entries, label, onIonChange, value }) => {
+    value?: string,
+    readProperty: string
+}> = ({ entries, label, onIonChange, value, readProperty }) => {
 
     const [localValue, setLocalValue] = useState("")
 
@@ -24,7 +24,7 @@ export const FormSelect: React.FC<{
     return <IonItem lines="none">
         {label && <IonLabel position="floating">{label}</IonLabel>}
         <IonSelect value={localValue} onIonChange={(e) => { handleSelectChange(e.detail.value!) }}>
-            {entries.map((entry, k) => <IonSelectOption key={k} value={entry.key} >{entry.value}</IonSelectOption>)}
+            {entries.map((entry, k) => <IonSelectOption key={k} value={entry.uid} >{entry[readProperty]}</IonSelectOption>)}
         </IonSelect>
     </IonItem>
 }

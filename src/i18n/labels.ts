@@ -32,7 +32,8 @@ interface LangUIMessages {
         savedSuccessfully: string
     },
     olts: GenericFormMessages,
-    customers: GenericFormMessages
+    customers: GenericFormMessages,
+    wifi: GenericFormMessages
 }
 
 interface LangUIErrors {
@@ -77,6 +78,17 @@ interface LangUIForms {
         neighborhood: string
         postalCode: string
         phone: string
+    },
+    wifi: {
+        ip: string
+        model: string
+        user: string
+        password: string
+        ssdid: string
+        passwordSsid: string
+        mac: string
+        customerId: string
+        routerId: string
     }
 }
 
@@ -88,6 +100,7 @@ interface LangMenuInterface {
     zones: string
     routers: string
     olts: string
+    wifi: string
 }
 
 export interface PagesInterface {
@@ -96,9 +109,10 @@ export interface PagesInterface {
     zones: string
     routers: string
     olts: string
+    wifi: string
 }
 
-export type PagesNames = "home" | "customers" | "zones" | "routers" | "olts"
+export type PagesNames = "home" | "customers" | "zones" | "routers" | "olts" | "wifi"
 
 
 

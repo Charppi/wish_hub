@@ -8,15 +8,18 @@ export const es: LangBodyInterface = {
         customers: "Clientes",
         zones: "Zonas",
         signout: "Cerrar sesión",
-        routers: "Routers",
-        olts: "Olt's"
+        routers: "Mikrotik",
+        olts: "Olt's",
+        wifi: "Wifi"
+
     },
     pages: {
         home: "Inicio",
         customers: "Clientes",
         zones: "Zonas",
-        routers: "Routers",
-        olts: "Olt's"
+        routers: "Mikrotik",
+        olts: "Olt's",
+        wifi: "Wifi"
     },
     messages: {
         routers: {
@@ -31,6 +34,10 @@ export const es: LangBodyInterface = {
         customers: {
             confirmCreation: "¿Estás seguro de guardar el cliente?",
             savedSuccessfully: "Cliente guardado exitosamente"
+        },
+        wifi: {
+            confirmCreation: "¿Estás seguro de guardar el router wifi?",
+            savedSuccessfully: "Router wifi guardado correctamente"
         }
     },
     errors: {
@@ -45,11 +52,11 @@ export const es: LangBodyInterface = {
     forms: {
         createButton: "Guardar",
         routers: {
-            name: "Nombre:",
-            ip: "IP:",
-            password: "Contraseña:",
-            port: "Puerto:",
-            user: "Usuario:"
+            name: "Nombre",
+            ip: "IP",
+            password: "Contraseña",
+            port: "Puerto",
+            user: "Usuario"
         },
         olts: {
             IPTvModule: "Módulo IPTV",
@@ -74,6 +81,17 @@ export const es: LangBodyInterface = {
             neighborhood: "Barrio",
             phone: "Teléfono",
             postalCode: "Código postal"
+        },
+        wifi: {
+            customerId: "Cliente",
+            ip: "IP",
+            mac: "MAC",
+            model: "Modelo",
+            password: "Contraseña",
+            passwordSsid: "Contraseña SSID",
+            ssdid: "SSID",
+            user: "Usuario",
+            routerId: "Router"
         }
     }
 }

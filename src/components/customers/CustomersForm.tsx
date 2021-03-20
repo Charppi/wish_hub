@@ -5,12 +5,12 @@ import CustomersService from '../../services/customers.service'
 import { confirmation, presentToast } from '../../services/utils.service'
 import { LangContext } from '../LangProvider'
 import { FormTextInput } from '../utils/FormTextInput'
+import { SubmitButton } from '../utils/SubmitButton'
 
 export const CustomersForm: React.FC<{ customerForUpdate: Customers | null }> = ({ customerForUpdate }) => {
     const [customer, setCustomer] = useState<Customers | null>(null)
     const [context] = useContext(LangContext)
     const { forms, messages, errors } = context
-    const { createButton } = forms
     const { names, lastNames, address, dni, email, neighborhood, phone, postalCode } = forms.customers
 
     const hadleSaveOrUpdate = (e: React.FormEvent<HTMLFormElement>) => {
@@ -34,7 +34,7 @@ export const CustomersForm: React.FC<{ customerForUpdate: Customers | null }> = 
         <FormTextInput label={neighborhood} onIonChange={(val) => { setCustomer({ ...customer!, neighborhood: val }) }} value={customer?.neighborhood} />
         <FormTextInput label={phone} onIonChange={(val) => { setCustomer({ ...customer!, phone: val }) }} value={customer?.phone} />
         <FormTextInput label={postalCode} onIonChange={(val) => { setCustomer({ ...customer!, postalCode: val }) }} value={customer?.postalCode} />
-        <IonButton className="ion-margin" type="submit">{createButton}</IonButton>
+        <SubmitButton />
     </form>
 
 }
